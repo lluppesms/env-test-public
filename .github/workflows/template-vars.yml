@@ -1,0 +1,86 @@
+# ------------------------------------------------------------------------------------------------------------------------
+# Reusable Workflow: Deploy Azure Resources Only
+# ------------------------------------------------------------------------------------------------------------------------
+name: z_template_deploy_infra
+run-name: Deploy Bicep
+on:
+  workflow_call:
+    inputs:
+      ENV_CODE:
+        required: true
+        type: string
+      PROJECT_ROOT:
+        required: false
+        type: string
+        default: 'defaultValue'
+      APP_NAME_ENV:
+        required: false
+        type: string
+        default: ''
+      APP_NAME_REPO:
+        required: false
+        type: string
+        default: ''
+      JOB_LEVEL_VAR:
+        required: false
+        type: string
+        default: ''
+      RESOURCEGROUP_PREFIX:
+        required: false
+        type: string
+        default: ''
+      RESOURCEGROUP_LOCATION:
+        required: false
+        type: string
+        default: ''
+
+# ------------------------------------------------------------------------------------------------------------------------
+jobs:
+  deploy:
+    name: Template Example
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.ENV_CODE }}
+
+    # ------------------------------------------------------------------------------------------------------------------------
+    # Variables
+    # ------------------------------------------------------------------------------------------------------------------------
+    env:
+      ENV_CODE: ${{ inputs.ENV_CODE }}
+      generatedResourceGroupName: ${{ inputs.RESOURCEGROUP_PREFIX }}-${{ inputs.ENV_CODE }}
+      testInput: ${{ inputs.testInput }}
+
+    # ------------------------------------------------------------------------------------------------------------------------
+    # Actions
+    # ------------------------------------------------------------------------------------------------------------------------
+    steps:
+      - name: Template Display Variables and Files
+        run: |-
+          echo "inputs.ENV_CODE=${{ inputs.ENV_CODE }}"
+          echo "env.generatedResourceGroupName=${{ env.generatedResourceGroupName }}"
+
+          echo "PROJECT_ROOT: ${{ inputs.PROJECT_ROOT }}"
+          echo "ENV_CODE: ${{ inputs.ENV_CODE }}"
+          echo "APP_NAME_ENV: ${{ inputs.VAR_APP_NAME_ENV }}"
+          echo "APP_NAME_REPO: ${{ inputs.VAR_APP_NAME_REPO }}"
+          echo "JOB_LEVEL_VAR: ${{ inputs.ENV_JOB_LEVEL_VAR }}"
+
+          echo "RESOURCEGROUP_PREFIX: ${{ inputs.RESOURCEGROUP_PREFIX }}"
+          echo "RESOURCEGROUP_LOCATION: ${{ inputs.RESOURCEGROUP_LOCATION }}"
+    
+          echo "---------------------------------"
+          echo "##[group]All Variables:"
+          echo "Environment:"
+          echo '${{ toJSON(env) }}'
+          echo "Variables:"
+          echo '${{ toJSON(vars) }}'
+          echo "Secrets:"
+          echo '${{ toJSON(secrets) }}'
+          echo "Inputs:"
+          echo '${{ toJSON(inputs) }}'
+          echo "##[endgroup]"
+          echo "---------------------------------"
+          echo "##[group]Directory of ${{ github.workspace  }}"
+          tree -R ${{ github.workspace  }}
+          echo "##[endgroup]"
+        continue-on-error: true
