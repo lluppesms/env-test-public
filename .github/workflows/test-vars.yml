@@ -1,0 +1,99 @@
+# ------------------------------------------------------------------------------------------------------------------------
+# Action: Deploy infra, then build and deploy one container app module
+# ------------------------------------------------------------------------------------------------------------------------
+  name: Test Variables in Repo and Environments
+
+  on:
+    workflow_dispatch:
+      inputs:
+        deployEnvironment:
+          description: 'Environment'
+          required: true
+          default: 'dev'
+          type: choice
+          options:
+            - dev
+            - qa
+            - prod
+  
+  # ------------------------------------------------------------------------------------------------------------------------
+  env:
+    # these are defined by the project itself, so they can stay here...
+    JOB_LEVEL_VAR: 'myjob'
+  
+  # ------------------------------------------------------------------------------------------------------------------------
+  jobs:
+    template-env:
+      # You can't pass environment variables to templates, so put them in outputs here that you CAN pass
+      name: Template Env Variables
+      runs-on: ubuntu-latest
+      outputs:
+        PROJECT_ROOT: ${{ github.workspace }}
+        ENV_CODE: ${{ inputs.deployEnvironment }}
+        
+        VAR_APP_NAME_ENV: ${{ vars.APP_NAME_ENV }}
+        VAR_APP_NAME_REPO: ${{ vars.APP_NAME_REPO }}
+        VAR_JOB_LEVEL_VAR: ${{ vars.JOB_LEVEL_VAR }}
+
+        ENV_APP_NAME_ENV: ${{ env.APP_NAME_ENV }}
+        ENV_APP_NAME_REPO: ${{ env.APP_NAME_REPO }}
+        ENV_JOB_LEVEL_VAR: ${{ env.JOB_LEVEL_VAR }}
+
+      steps:
+        - name: Set common environment variables
+          id: set-env
+          run: |
+            echo "PROJECT_ROOT: ${{ github.workspace }}"
+            echo "inputs.ENV_CODE: ${{ inputs.deployEnvironment }}"
+
+            echo"var.APP_NAME_ENV: ${{ vars.APP_NAME_ENV }}"
+            echo"var.APP_NAME_REPO: ${{ vars.APP_NAME_REPO }}"
+            echo"var.JOB_LEVEL_VAR: ${{ vars.JOB_LEVEL_VAR }}"
+    
+            echo"env.APP_NAME_ENV: ${{ env.APP_NAME_ENV }}"
+            echo"env.APP_NAME_REPO: ${{ env.APP_NAME_REPO }}"
+            echo"env.JOB_LEVEL_VAR: ${{ env.JOB_LEVEL_VAR }}"
+    
+  
+    test:
+      runs-on: ubuntu-latest
+      environment: ${{ inputs.deployEnvironment }}
+      steps:
+        - name: Display Variables and Files
+          run: |-
+            echo"var.APP_NAME_ENV: ${{ vars.APP_NAME_ENV }}"
+            echo"var.APP_NAME_REPO: ${{ vars.APP_NAME_REPO }}"
+            echo"var.JOB_LEVEL_VAR: ${{ vars.JOB_LEVEL_VAR }}"
+    
+            echo"env.APP_NAME_ENV: ${{ env.APP_NAME_ENV }}"
+            echo"env.APP_NAME_REPO: ${{ env.APP_NAME_REPO }}"
+            echo"env.JOB_LEVEL_VAR: ${{ env.JOB_LEVEL_VAR }}"
+    
+            echo "steps.template-env.PROJECT_ROOT=${{ steps.template-env.PROJECT_ROOT }}"
+            echo "steps.template-env.ENV_CODE=${{ steps.template-env.ENV_CODE }}"
+
+            echo "steps.template-env.VAR_APP_NAME_ENV=${{ steps.template-env.VAR_APP_NAME_ENV }}"
+            echo "steps.template-env.VAR_APP_NAME_REPO=${{ steps.template-env.VAR_APP_NAME_REPO }}"
+            echo "steps.template-env.VAR_JOB_LEVEL_VAR=${{ steps.template-env.VAR_JOB_LEVEL_VAR }}"
+
+            echo "steps.template-env.ENV_APP_NAME_ENV=${{ steps.template-env.ENV_APP_NAME_ENV }}"
+            echo "steps.template-env.ENV_APP_NAME_REPO=${{ steps.template-env.ENV_APP_NAME_REPO }}"
+            echo "steps.template-env.ENV_JOB_LEVEL_VAR=${{ steps.template-env.ENV_JOB_LEVEL_VAR }}"
+
+            echo "---------------------------------"
+            echo "##[group]All Variables:"
+            echo "Environment:"
+            echo '${{ toJSON(env) }}'
+            echo "Variables:"
+            echo '${{ toJSON(vars) }}'
+            echo "Secrets:"
+            echo '${{ toJSON(secrets) }}'
+            echo "Inputs:"
+            echo '${{ toJSON(inputs) }}'
+            echo "##[endgroup]"
+
+            echo "---------------------------------"
+            echo "##[group]Directory of ${{ github.workspace  }}"
+            tree -R ${{ github.workspace  }}
+            echo "##[endgroup]"
+          continue-on-error: true
