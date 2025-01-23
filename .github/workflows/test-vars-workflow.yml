@@ -43,17 +43,13 @@
         - name: Set common environment variables
           id: set-env
           run: |
-            echo "PROJECT_ROOT: ${{ github.workspace }}"
-            echo "inputs.ENV_CODE: ${{ inputs.deployEnvironment }}"
-            echo "var.APP_NAME_ENV: ${{ vars.APP_NAME_ENV }}"
-            echo "var.APP_NAME_REPO: ${{ vars.APP_NAME_REPO }}"
-            echo "env.JOB_LEVEL_VAR: ${{ env.JOB_LEVEL_VAR }}"
-            echo "env.RESOURCEGROUP_PREFIX: ${{ vars.RESOURCEGROUP_PREFIX }}"
-            echo "env.RESOURCEGROUP_LOCATION: ${{ vars.RESOURCEGROUP_LOCATION }}"
-
-            echo "BAD: var.JOB_LEVEL_VAR: ${{ vars.JOB_LEVEL_VAR }}"
-            echo "BAD: env.APP_NAME_ENV: ${{ env.APP_NAME_ENV }}"
-            echo "BAD: env.APP_NAME_REPO: ${{ env.APP_NAME_REPO }}"
+            echo "PROJECT_ROOT               = ${{ github.workspace }}"
+            echo "inputs.ENV_CODE            = ${{ inputs.deployEnvironment }}"
+            echo "var.APP_NAME_ENV           = ${{ vars.APP_NAME_ENV }}"
+            echo "var.APP_NAME_REPO          = ${{ vars.APP_NAME_REPO }}"
+            echo "env.JOB_LEVEL_VAR          = ${{ env.JOB_LEVEL_VAR }}"
+            echo "env.RESOURCEGROUP_PREFIX   = ${{ vars.RESOURCEGROUP_PREFIX }}"
+            echo "env.RESOURCEGROUP_LOCATION = ${{ vars.RESOURCEGROUP_LOCATION }}"
 
     task-test:
       name: Show Variables Job
@@ -64,22 +60,22 @@
       steps:
         - name: Display Variables Task
           run: |-
-            echo "var.APP_NAME_ENV  = ${{ vars.APP_NAME_ENV }}"
-            echo "var.APP_NAME_REPO = ${{ vars.APP_NAME_REPO }}"
-            echo "env.JOB_LEVEL_VAR = ${{ env.JOB_LEVEL_VAR }}"
-            echo "env.RESOURCEGROUP_PREFIX: ${{ vars.RESOURCEGROUP_PREFIX }}"
-            echo "env.RESOURCEGROUP_LOCATION: ${{ vars.RESOURCEGROUP_LOCATION }}"
+            echo "var.APP_NAME_ENV                          = ${{ vars.APP_NAME_ENV }}"
+            echo "var.APP_NAME_REPO                         = ${{ vars.APP_NAME_REPO }}"
+            echo "env.JOB_LEVEL_VAR                         = ${{ env.JOB_LEVEL_VAR }}"
+            echo "env.RESOURCEGROUP_PREFIX                  = ${{ vars.RESOURCEGROUP_PREFIX }}"
+            echo "env.RESOURCEGROUP_LOCATION                = ${{ vars.RESOURCEGROUP_LOCATION }}"
 
-            echo "BAD var.JOB_LEVEL_VAR = ${{ vars.JOB_LEVEL_VAR }}"
-            echo "BAD env.APP_NAME_ENV  = ${{ env.APP_NAME_ENV }}"
-            echo "BAD env.APP_NAME_REPO = ${{ env.APP_NAME_REPO }}"
+            echo "BAD var.JOB_LEVEL_VAR                     = ${{ vars.JOB_LEVEL_VAR }}"
+            echo "BAD env.APP_NAME_ENV                      = ${{ env.APP_NAME_ENV }}"
+            echo "BAD env.APP_NAME_REPO                     = ${{ env.APP_NAME_REPO }}"
     
-            echo "steps.template-env.PROJECT_ROOT      = ${{ needs.template-env.outputs.PROJECT_ROOT }}"
-            echo "steps.template-env.ENV_CODE          = ${{ needs.template-env.outputs.ENV_CODE }}"
-            echo "steps.template-env.VAR_APP_NAME_ENV  = ${{ needs.template-env.outputs.VAR_APP_NAME_ENV }}"
-            echo "steps.template-env.VAR_APP_NAME_REPO = ${{ needs.template-env.outputs.VAR_APP_NAME_REPO }}"
-            echo "steps.template-env.ENV_JOB_LEVEL_VAR = ${{ needs.template-env.outputs.ENV_JOB_LEVEL_VAR }}"
-            echo "steps.template-env.RESOURCEGROUP_PREFIX = ${{ needs.template-env.outputs.RESOURCEGROUP_PREFIX }}"
+            echo "steps.template-env.PROJECT_ROOT           = ${{ needs.template-env.outputs.PROJECT_ROOT }}"
+            echo "steps.template-env.ENV_CODE               = ${{ needs.template-env.outputs.ENV_CODE }}"
+            echo "steps.template-env.VAR_APP_NAME_ENV       = ${{ needs.template-env.outputs.VAR_APP_NAME_ENV }}"
+            echo "steps.template-env.VAR_APP_NAME_REPO      = ${{ needs.template-env.outputs.VAR_APP_NAME_REPO }}"
+            echo "steps.template-env.ENV_JOB_LEVEL_VAR      = ${{ needs.template-env.outputs.ENV_JOB_LEVEL_VAR }}"
+            echo "steps.template-env.RESOURCEGROUP_PREFIX   = ${{ needs.template-env.outputs.RESOURCEGROUP_PREFIX }}"
             echo "steps.template-env.RESOURCEGROUP_LOCATION = ${{ needs.template-env.outputs.RESOURCEGROUP_LOCATION }}"
 
             echo "BAD: steps.template-env.ENV_APP_NAME_ENV  = ${{ needs.template-env.outputs.ENV_APP_NAME_ENV }}"
