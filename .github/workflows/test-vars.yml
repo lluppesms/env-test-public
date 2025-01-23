@@ -46,28 +46,29 @@
             echo "PROJECT_ROOT: ${{ github.workspace }}"
             echo "inputs.ENV_CODE: ${{ inputs.deployEnvironment }}"
 
-            echo"var.APP_NAME_ENV: ${{ vars.APP_NAME_ENV }}"
-            echo"var.APP_NAME_REPO: ${{ vars.APP_NAME_REPO }}"
-            echo"var.JOB_LEVEL_VAR: ${{ vars.JOB_LEVEL_VAR }}"
+            echo "var.APP_NAME_ENV: ${{ vars.APP_NAME_ENV }}"
+            echo "var.APP_NAME_REPO: ${{ vars.APP_NAME_REPO }}"
+            echo "var.JOB_LEVEL_VAR: ${{ vars.JOB_LEVEL_VAR }}"
     
-            echo"env.APP_NAME_ENV: ${{ env.APP_NAME_ENV }}"
-            echo"env.APP_NAME_REPO: ${{ env.APP_NAME_REPO }}"
-            echo"env.JOB_LEVEL_VAR: ${{ env.JOB_LEVEL_VAR }}"
+            echo "env.APP_NAME_ENV: ${{ env.APP_NAME_ENV }}"
+            echo "env.APP_NAME_REPO: ${{ env.APP_NAME_REPO }}"
+            echo "env.JOB_LEVEL_VAR: ${{ env.JOB_LEVEL_VAR }}"
     
   
     test:
+      name: Show Variables
       runs-on: ubuntu-latest
       environment: ${{ inputs.deployEnvironment }}
       steps:
         - name: Display Variables and Files
           run: |-
-            echo"var.APP_NAME_ENV: ${{ vars.APP_NAME_ENV }}"
-            echo"var.APP_NAME_REPO: ${{ vars.APP_NAME_REPO }}"
-            echo"var.JOB_LEVEL_VAR: ${{ vars.JOB_LEVEL_VAR }}"
+            echo "var.APP_NAME_ENV: ${{ vars.APP_NAME_ENV }}"
+            echo "var.APP_NAME_REPO: ${{ vars.APP_NAME_REPO }}"
+            echo "var.JOB_LEVEL_VAR: ${{ vars.JOB_LEVEL_VAR }}"
     
-            echo"env.APP_NAME_ENV: ${{ env.APP_NAME_ENV }}"
-            echo"env.APP_NAME_REPO: ${{ env.APP_NAME_REPO }}"
-            echo"env.JOB_LEVEL_VAR: ${{ env.JOB_LEVEL_VAR }}"
+            echo "env.APP_NAME_ENV: ${{ env.APP_NAME_ENV }}"
+            echo "env.APP_NAME_REPO: ${{ env.APP_NAME_REPO }}"
+            echo "env.JOB_LEVEL_VAR: ${{ env.JOB_LEVEL_VAR }}"
     
             echo "steps.template-env.PROJECT_ROOT=${{ steps.template-env.PROJECT_ROOT }}"
             echo "steps.template-env.ENV_CODE=${{ steps.template-env.ENV_CODE }}"
