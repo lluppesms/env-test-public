@@ -48,8 +48,8 @@
             echo "var.APP_NAME_ENV: ${{ vars.APP_NAME_ENV }}"
             echo "var.APP_NAME_REPO: ${{ vars.APP_NAME_REPO }}"
             echo "env.JOB_LEVEL_VAR: ${{ env.JOB_LEVEL_VAR }}"
-            echo "env.RESOURCEGROUP_PREFIX: ${{ env.RESOURCEGROUP_PREFIX }}"
-            echo "env.RESOURCEGROUP_LOCATION: ${{ env.RESOURCEGROUP_LOCATION }}"
+            echo "env.RESOURCEGROUP_PREFIX: ${{ vars.RESOURCEGROUP_PREFIX }}"
+            echo "env.RESOURCEGROUP_LOCATION: ${{ vars.RESOURCEGROUP_LOCATION }}"
 
             echo "BAD: var.JOB_LEVEL_VAR: ${{ vars.JOB_LEVEL_VAR }}"
             echo "BAD: env.APP_NAME_ENV: ${{ env.APP_NAME_ENV }}"
@@ -67,8 +67,8 @@
             echo "var.APP_NAME_ENV  = ${{ vars.APP_NAME_ENV }}"
             echo "var.APP_NAME_REPO = ${{ vars.APP_NAME_REPO }}"
             echo "env.JOB_LEVEL_VAR = ${{ env.JOB_LEVEL_VAR }}"
-            echo "env.RESOURCEGROUP_PREFIX: ${{ env.RESOURCEGROUP_PREFIX }}"
-            echo "env.RESOURCEGROUP_LOCATION: ${{ env.RESOURCEGROUP_LOCATION }}"
+            echo "env.RESOURCEGROUP_PREFIX: ${{ vars.RESOURCEGROUP_PREFIX }}"
+            echo "env.RESOURCEGROUP_LOCATION: ${{ vars.RESOURCEGROUP_LOCATION }}"
 
             echo "BAD var.JOB_LEVEL_VAR = ${{ vars.JOB_LEVEL_VAR }}"
             echo "BAD env.APP_NAME_ENV  = ${{ env.APP_NAME_ENV }}"
@@ -107,13 +107,14 @@
           continue-on-error: true
   
     template-test:
-      name: Deploy API ${{ inputs.deployEnvironment }} ${{ inputs.deployType }}
+      name: Template Test ${{ inputs.deployEnvironment }}
       uses: ./.github/workflows/template-vars.yml
       needs:
         - template-env
       secrets: inherit
       with:
         PROJECT_ROOT: ${{ needs.template-env.outputs.PROJECT_ROOT }}
+        ENVIRONMENT_NAME: ${{ inputs.deployEnvironment }}
         ENV_CODE: ${{ needs.template-env.outputs.ENV_CODE }}
         APP_NAME_ENV: ${{ needs.template-env.outputs.VAR_APP_NAME_ENV }}
         APP_NAME_REPO: ${{ needs.template-env.outputs.VAR_APP_NAME_REPO }}

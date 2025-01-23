@@ -6,29 +6,27 @@ run-name: Deploy Bicep
 on:
   workflow_call:
     inputs:
+      ENVIRONMENT_NAME:
+        required: true
+        type: string
       ENV_CODE:
         required: true
         type: string
       PROJECT_ROOT:
         required: false
         type: string
-        default: 'defaultValue'
       APP_NAME_ENV:
         required: false
         type: string
-        default: ''
       APP_NAME_REPO:
         required: false
         type: string
-        default: ''
       JOB_LEVEL_VAR:
         required: false
         type: string
-        default: ''
       RESOURCEGROUP_PREFIX:
         required: false
         type: string
-        default: ''
       RESOURCEGROUP_LOCATION:
         required: false
         type: string
@@ -40,7 +38,7 @@ jobs:
     name: Template Example
     runs-on: ubuntu-latest
     environment:
-      name: ${{ inputs.ENV_CODE }}
+      name: ${{ inputs.ENVIRONMENT_NAME }}
 
     # ------------------------------------------------------------------------------------------------------------------------
     # Variables
@@ -56,17 +54,18 @@ jobs:
     steps:
       - name: Template Display Variables and Files
         run: |-
+          echo "inputs.ENVIRONMENT_NAME=${{ inputs.ENVIRONMENT_NAME }}"
           echo "inputs.ENV_CODE=${{ inputs.ENV_CODE }}"
-          echo "env.generatedResourceGroupName=${{ env.generatedResourceGroupName }}"
 
           echo "PROJECT_ROOT: ${{ inputs.PROJECT_ROOT }}"
           echo "ENV_CODE: ${{ inputs.ENV_CODE }}"
-          echo "APP_NAME_ENV: ${{ inputs.VAR_APP_NAME_ENV }}"
-          echo "APP_NAME_REPO: ${{ inputs.VAR_APP_NAME_REPO }}"
-          echo "JOB_LEVEL_VAR: ${{ inputs.ENV_JOB_LEVEL_VAR }}"
+          echo "APP_NAME_ENV: ${{ inputs.APP_NAME_ENV }}"
+          echo "APP_NAME_REPO: ${{ inputs.APP_NAME_REPO }}"
+          echo "JOB_LEVEL_VAR: ${{ inputs.JOB_LEVEL_VAR }}"
 
           echo "RESOURCEGROUP_PREFIX: ${{ inputs.RESOURCEGROUP_PREFIX }}"
           echo "RESOURCEGROUP_LOCATION: ${{ inputs.RESOURCEGROUP_LOCATION }}"
+          echo "env.generatedResourceGroupName=${{ env.generatedResourceGroupName }}"
     
           echo "---------------------------------"
           echo "##[group]All Variables:"
