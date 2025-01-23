@@ -60,6 +60,8 @@
       name: Show Variables
       runs-on: ubuntu-latest
       environment: ${{ inputs.deployEnvironment }}
+      needs:
+        - template-env
       steps:
         - name: Display Variables and Files
           run: |-
