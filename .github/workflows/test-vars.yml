@@ -60,26 +60,29 @@
       environment: ${{ inputs.deployEnvironment }}
       needs:
         - template-env
+      # secrets: inherit
+      # with:
+
       steps:
         - name: Display Variables and Files
           run: |-
-            echo "var.APP_NAME_ENV: ${{ vars.APP_NAME_ENV }}"
-            echo "var.APP_NAME_REPO: ${{ vars.APP_NAME_REPO }}"
-            echo "env.JOB_LEVEL_VAR: ${{ env.JOB_LEVEL_VAR }}"
+            echo "var.APP_NAME_ENV  = ${{ vars.APP_NAME_ENV }}"
+            echo "var.APP_NAME_REPO = ${{ vars.APP_NAME_REPO }}"
+            echo "env.JOB_LEVEL_VAR = ${{ env.JOB_LEVEL_VAR }}"
 
-            echo "var.JOB_LEVEL_VAR: ${{ vars.JOB_LEVEL_VAR }}"
-            echo "env.APP_NAME_ENV: ${{ env.APP_NAME_ENV }}"
-            echo "env.APP_NAME_REPO: ${{ env.APP_NAME_REPO }}"
+            echo "var.JOB_LEVEL_VAR = ${{ vars.JOB_LEVEL_VAR }}"
+            echo "env.APP_NAME_ENV  = ${{ env.APP_NAME_ENV }}"
+            echo "env.APP_NAME_REPO = ${{ env.APP_NAME_REPO }}"
     
-            echo "steps.template-env.PROJECT_ROOT=${{ steps.template-env.PROJECT_ROOT }}"
-            echo "steps.template-env.ENV_CODE=${{ steps.template-env.ENV_CODE }}"
-            echo "steps.template-env.VAR_APP_NAME_ENV=${{ steps.template-env.VAR_APP_NAME_ENV }}"
-            echo "steps.template-env.VAR_APP_NAME_REPO=${{ steps.template-env.VAR_APP_NAME_REPO }}"
-            echo "steps.template-env.ENV_JOB_LEVEL_VAR=${{ steps.template-env.ENV_JOB_LEVEL_VAR }}"
+            echo "steps.template-env.PROJECT_ROOT      = ${{ needs.template-env.steps.set-env.PROJECT_ROOT }}"
+            echo "steps.template-env.ENV_CODE          = ${{ needs.template-env.steps.set-env.template-env.ENV_CODE }}"
+            echo "steps.template-env.VAR_APP_NAME_ENV  = ${{ needs.template-env.steps.set-env.template-env.VAR_APP_NAME_ENV }}"
+            echo "steps.template-env.VAR_APP_NAME_REPO = ${{ needs.template-env.steps.set-env.template-env.VAR_APP_NAME_REPO }}"
+            echo "steps.template-env.ENV_JOB_LEVEL_VAR = ${{ needs.template-env.steps.set-env.template-env.ENV_JOB_LEVEL_VAR }}"
 
-            echo "BAD: steps.template-env.ENV_APP_NAME_ENV=${{ steps.template-env.ENV_APP_NAME_ENV }}"
-            echo "BAD: steps.template-env.ENV_APP_NAME_REPO=${{ steps.template-env.ENV_APP_NAME_REPO }}"
-            echo "BAD: steps.template-env.VAR_JOB_LEVEL_VAR=${{ steps.template-env.VAR_JOB_LEVEL_VAR }}"
+            echo "BAD: steps.template-env.ENV_APP_NAME_ENV  = ${{ needs.template-env.steps.set-env.template-env.ENV_APP_NAME_ENV }}"
+            echo "BAD: steps.template-env.ENV_APP_NAME_REPO = ${{ needs.template-env.steps.set-env.template-env.ENV_APP_NAME_REPO }}"
+            echo "BAD: steps.template-env.VAR_JOB_LEVEL_VAR = ${{ needs.template-env.steps.set-env.template-env.VAR_JOB_LEVEL_VAR }}"
 
             echo "---------------------------------"
             echo "##[group]All Variables:"
