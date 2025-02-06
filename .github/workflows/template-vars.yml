@@ -66,7 +66,8 @@ jobs:
           echo "RESOURCEGROUP_PREFIX           = ${{ inputs.RESOURCEGROUP_PREFIX }}"
           echo "RESOURCEGROUP_LOCATION         = ${{ inputs.RESOURCEGROUP_LOCATION }}"
           echo "env.generatedResourceGroupName = ${{ env.generatedResourceGroupName }}"
-    
+          echo "env.JOB_LEVEL_VAR              = ${{ env.JOB_LEVEL_VAR }}"
+
           echo "---------------------------------"
           echo "##[group]All Variables:"
           echo "Environment:"
