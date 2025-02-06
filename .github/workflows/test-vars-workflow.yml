@@ -112,37 +112,30 @@
         RESOURCEGROUP_LOCATION: ${{ needs.template-env.outputs.RESOURCEGROUP_LOCATION }}
         PARM_JOB_LEVEL_VAR: ${{ needs.template-env.outputs.ENV_JOB_LEVEL_VAR }}
 
-    export-test:
+    env-export:
       name: Export Env Job
       runs-on: ubuntu-latest
       environment: ${{ inputs.deployEnvironment }}
       outputs:
-        JOB_LEVEL_VAR: ${{ steps.export-action.outputs.JOB_LEVEL_VAR }}
-        JOB_LEVEL_VAR_2: ${{ steps.export-action.outputs.JOB_LEVEL_VAR_2 }}
-        JOB_LEVEL_VAR_3: ${{ steps.export-action.outputs.JOB_LEVEL_VAR_3 }}
+        JOB_LEVEL_VAR: ${{ steps.export-env-action.outputs.JOB_LEVEL_VAR }}
+        JOB_LEVEL_VAR_2: ${{ steps.export-env-action.outputs.JOB_LEVEL_VAR_2 }}
+        JOB_LEVEL_VAR_3: ${{ steps.export-env-action.outputs.JOB_LEVEL_VAR_3 }}
       steps:
         - name: Checkout
           uses: actions/checkout@v3.3.0
-
         - name: Run custom export action
-          id: export-action
+          id: export-env-action
           uses: ./export-env-action
-
-        - name: Display Outputs
-          run: |
-            echo "JOB_LEVEL_VAR = ${{ steps.export-action.outputs.JOB_LEVEL_VAR }}"
-            echo "JOB_LEVEL_VAR_2 = ${{ steps.export-action.outputs.JOB_LEVEL_VAR_2 }}" 
-            echo "JOB_LEVEL_VAR_3 = ${{ steps.export-action.outputs.JOB_LEVEL_VAR_3 }}"
 
     export-template:
       name: Export Template Test ${{ inputs.deployEnvironment }}
       uses: ./.github/workflows/template-vars.yml
       needs:
-        - export-test
+        - env-export
       secrets: inherit
       with:
         ENV_CODE: 'NA'
         ENVIRONMENT_NAME: ${{ inputs.deployEnvironment }}
-        EXP_JOB_LEVEL_VAR: ${{ needs.export-test.outputs.JOB_LEVEL_VAR }}
-        EXP_JOB_LEVEL_VAR_2: ${{ needs.export-test.outputs.JOB_LEVEL_VAR_2 }}
-        EXP_JOB_LEVEL_VAR_3: ${{ needs.export-test.outputs.JOB_LEVEL_VAR_3 }}
+        EXP_JOB_LEVEL_VAR: ${{ needs.env-export.outputs.JOB_LEVEL_VAR }}
+        EXP_JOB_LEVEL_VAR_2: ${{ needs.env-export.outputs.JOB_LEVEL_VAR_2 }}
+        EXP_JOB_LEVEL_VAR_3: ${{ needs.env-export.outputs.JOB_LEVEL_VAR_3 }}
