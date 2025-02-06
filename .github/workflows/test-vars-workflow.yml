@@ -108,5 +108,5 @@
         APP_NAME_REPO: ${{ needs.template-env.outputs.VAR_APP_NAME_REPO }}
         RESOURCEGROUP_PREFIX: ${{ needs.template-env.outputs.RESOURCEGROUP_PREFIX }}
         RESOURCEGROUP_LOCATION: ${{ needs.template-env.outputs.RESOURCEGROUP_LOCATION }}
-        #JOB_LEVEL_VAR: ${{ needs.template-env.outputs.ENV_JOB_LEVEL_VAR }}
+        PARM_JOB_LEVEL_VAR: ${{ needs.template-env.outputs.ENV_JOB_LEVEL_VAR }}
 

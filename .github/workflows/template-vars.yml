@@ -21,7 +21,7 @@ on:
       APP_NAME_REPO:
         required: false
         type: string
-      JOB_LEVEL_VAR:
+      PARM_JOB_LEVEL_VAR:
         required: false
         type: string
       RESOURCEGROUP_PREFIX:
@@ -61,7 +61,7 @@ jobs:
           echo "ENV_CODE                       = ${{ inputs.ENV_CODE }}"
           echo "APP_NAME_ENV                   = ${{ inputs.APP_NAME_ENV }}"
           echo "APP_NAME_REPO                  = ${{ inputs.APP_NAME_REPO }}"
-          echo "JOB_LEVEL_VAR                  = ${{ inputs.JOB_LEVEL_VAR }}"
+          echo "PARM_JOB_LEVEL_VAR             = ${{ inputs.PARM_JOB_LEVEL_VAR }}"
 
           echo "RESOURCEGROUP_PREFIX           = ${{ inputs.RESOURCEGROUP_PREFIX }}"
           echo "RESOURCEGROUP_LOCATION         = ${{ inputs.RESOURCEGROUP_LOCATION }}"
