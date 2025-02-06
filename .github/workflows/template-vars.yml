@@ -47,7 +47,7 @@ jobs:
       ENV_CODE: ${{ inputs.ENV_CODE }}
       generatedResourceGroupName: ${{ inputs.RESOURCEGROUP_PREFIX }}-${{ inputs.ENV_CODE }}
       testInput: ${{ inputs.testInput }}
-      COPY_OF_JOB_LEVEL_VAR: ${{ inputs.PARM_JOB_LEVEL_VAR }}"
+      COPY_OF_JOB_LEVEL_VAR: ${{ inputs.PARM_JOB_LEVEL_VAR }}
 
     # ------------------------------------------------------------------------------------------------------------------------
     # Actions
