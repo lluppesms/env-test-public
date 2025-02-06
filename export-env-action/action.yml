@@ -1,0 +1,8 @@
+name: 'Export Environment to Template'
+description: 'Exports all environment variables to outputs for use in template'
+outputs:
+  time:
+    description: 'The time we said hello.'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'

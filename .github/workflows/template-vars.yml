@@ -31,6 +31,15 @@ on:
         required: false
         type: string
         default: ''
+      EXP_JOB_LEVEL_VAR:
+        required: false
+        type: string
+      EXP_JOB_LEVEL_VAR_2:
+        required: false
+        type: string
+      EXP_JOB_LEVEL_VAR_3:
+        required: false
+        type: string
 
 # ------------------------------------------------------------------------------------------------------------------------
 jobs:
@@ -67,8 +76,14 @@ jobs:
           echo "RESOURCEGROUP_PREFIX           = ${{ inputs.RESOURCEGROUP_PREFIX }}"
           echo "RESOURCEGROUP_LOCATION         = ${{ inputs.RESOURCEGROUP_LOCATION }}"
           echo "env.generatedResourceGroupName = ${{ env.generatedResourceGroupName }}"
-          echo "env.JOB_LEVEL_VAR              = ${{ env.JOB_LEVEL_VAR }}"
           echo "COPY_OF_JOB_LEVEL_VAR          = ${{ env.COPY_OF_JOB_LEVEL_VAR }}"
+          echo "env.JOB_LEVEL_VAR              = ${{ env.JOB_LEVEL_VAR }}"
+          echo "env.JOB_LEVEL_VAR_2            = ${{ env.JOB_LEVEL_VAR_2 }}"
+          echo "env.JOB_LEVEL_VAR_3            = ${{ env.JOB_LEVEL_VAR_3 }}"
+
+          echo "EXP_JOB_LEVEL_VAR              = ${{ inputs.EXP_JOB_LEVEL_VAR }}"
+          echo "EXP_JOB_LEVEL_VAR_2            = ${{ inputs.EXP_JOB_LEVEL_VAR_2 }}"
+          echo "EXP_JOB_LEVEL_VAR_3            = ${{ inputs.EXP_JOB_LEVEL_VAR_3 }}"
 
           echo "---------------------------------"
           echo "##[group]All Variables:"
